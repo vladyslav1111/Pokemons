@@ -34,8 +34,9 @@ final class NetworkService {
                 } catch let error {
                     completion(.failure(error))
                 }
+            } else {
+                completion(.failure(RequestError.unknownError))
             }
-            completion(.failure(RequestError.unknownError))
         }.resume()
     }
 }
