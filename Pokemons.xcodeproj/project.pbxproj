@@ -14,6 +14,7 @@
 		2101529325A313F60097BADA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2101529125A313F60097BADA /* LaunchScreen.storyboard */; };
 		2101529E25A313F60097BADA /* PokemonsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101529D25A313F60097BADA /* PokemonsTests.swift */; };
 		210152A925A313F60097BADA /* PokemonsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210152A825A313F60097BADA /* PokemonsUITests.swift */; };
+		210152B825A321B90097BADA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210152B725A321B90097BADA /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		210152A425A313F60097BADA /* PokemonsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokemonsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		210152A825A313F60097BADA /* PokemonsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsUITests.swift; sourceTree = "<group>"; };
 		210152AA25A313F60097BADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		210152B725A321B90097BADA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		2101528525A313F40097BADA /* Pokemons */ = {
 			isa = PBXGroup;
 			children = (
+				210152B625A321100097BADA /* Services */,
 				2101528625A313F40097BADA /* AppDelegate.swift */,
 				2101528A25A313F40097BADA /* ViewController.swift */,
 				2101528C25A313F40097BADA /* Main.storyboard */,
@@ -123,6 +126,14 @@
 				210152AA25A313F60097BADA /* Info.plist */,
 			);
 			path = PokemonsUITests;
+			sourceTree = "<group>";
+		};
+		210152B625A321100097BADA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				210152B725A321B90097BADA /* NetworkService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2101528B25A313F40097BADA /* ViewController.swift in Sources */,
+				210152B825A321B90097BADA /* NetworkService.swift in Sources */,
 				2101528725A313F40097BADA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
