@@ -12,7 +12,7 @@ class PokemonDataService {
     
     func getPokemons(offset: Int, limit: Int, completionHandler: @escaping ([Pokemon]?) -> Void) {
         let urlString = APIKeys.baseURL + "/pokemon?offset=\(offset)&limit=\(limit)"
-        request(urlString: urlString) { (response: PokemonResponse?) in
+        request(urlString: urlString) { [unowned self] (response: PokemonResponse?) in
             guard let response = response, let pokemons = response.results else { return completionHandler(nil) }
             var result = [Pokemon]()
             for pokemon in pokemons {

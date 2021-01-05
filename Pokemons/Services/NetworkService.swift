@@ -8,9 +8,9 @@
 import Foundation
 
 enum RequestError: Error {
-    case badRequest
     case noData
     case unknownError
+    case unacceptableStatusCode
 }
 
 final class NetworkService {
@@ -21,7 +21,7 @@ final class NetworkService {
                 return
             }
             guard let response = response as? HTTPURLResponse else {
-                completion(.failure(RequestError.badRequest))
+                completion(.failure(RequestError.unknownError))
                 return
             }
             guard let data = data else {
@@ -35,7 +35,7 @@ final class NetworkService {
                     completion(.failure(error))
                 }
             } else {
-                completion(.failure(RequestError.unknownError))
+                completion(.failure(RequestError.unacceptableStatusCode))
             }
         }.resume()
     }
