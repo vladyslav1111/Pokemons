@@ -7,12 +7,20 @@
 
 import Foundation
 
-class Pokemon: Decodable {
+public class Pokemon: Decodable {
     let id: Int
     let name: String
     let sprites: Sprites
     let stats: [Stat]
     let types: [PokemonType]
+    
+    init(id: Int, name: String, stats: [Stat], types: [PokemonType], sprites: Sprites) {
+        self.id = id
+        self.name = name
+        self.stats = stats
+        self.types = types
+        self.sprites = sprites
+    }
     
     struct Sprites: Decodable {
         let backDefault: String
@@ -25,7 +33,7 @@ class Pokemon: Decodable {
     }
 }
 
-class Stat: Decodable {
+public class Stat: Decodable {
     let baseStat: Int
     let effort: Int
     let name: String
@@ -40,16 +48,22 @@ class Stat: Decodable {
         case name
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         baseStat = try container.decode(Int.self, forKey: .baseStat)
         effort = try container.decode(Int.self, forKey: .effort)
         let nestedContainer = try container.nestedContainer(keyedBy: StatKeys.self, forKey: .stat)
         name = try nestedContainer.decode(String.self, forKey: .name)
     }
+    
+    init(baseStat: Int, effort: Int, name: String) {
+        self.baseStat = baseStat
+        self.effort = effort
+        self.name = name
+    }
 }
 
-class PokemonType: Decodable {
+public class PokemonType: Decodable {
     let slot: Int
     let name: String
     
@@ -62,10 +76,15 @@ class PokemonType: Decodable {
         case name
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         slot = try container.decode(Int.self, forKey: .slot)
         let nestedContainer = try container.nestedContainer(keyedBy: TypeKeys.self, forKey: .type)
         name = try nestedContainer.decode(String.self, forKey: .name)
+    }
+    
+    init(slot: Int, name: String) {
+        self.slot = slot
+        self.name = name
     }
 }

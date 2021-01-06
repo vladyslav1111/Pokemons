@@ -14,18 +14,20 @@ protocol PokemonListViewModelDelegate: class {
 
 class PokemonListViewModel {
     private var pokemons: [Pokemon]?
+    private let reachability: Reachability
+    private let pokeponKey: NSString = "pokemons"
+    
+    var numberOfPokemons: Int {
+        return pokemons?.count ?? 0
+    }
+    
     weak var delegate: PokemonListViewModelDelegate?
-    let reachability: Reachability
     let pokemonsCache: NSCache<NSString, NSArray>
-    let pokeponKey: NSString = "pokemons"
+    var pokemonDataService = PokemonDataService.shared
     
     init() {
         self.reachability = try! Reachability()
         self.pokemonsCache = NSCache<NSString, NSArray>()
-    }
-    
-    var numberOfPokemons: Int {
-        return pokemons?.count ?? 0
     }
     
     func getPokemonCellViewModel(forIndex index: Int) -> PokemonCellViewModel {
@@ -39,24 +41,9 @@ class PokemonListViewModel {
         return PokemonDetailsViewModel(pokemon: pokemon)
     }
     
-    private func getPokemon(withIndex index: Int) -> Pokemon? {
-        if (0..<(pokemons?.count ?? 0)).contains(index) {
-            return pokemons?[index]
-        }
-        return nil
-    }
-    
-    private func getPokemonName(withIndex index: Int) -> String {
-        return getPokemon(withIndex: index)?.name ?? ""
-    }
-    
-    private func getPokemonImageURL(withIndex index: Int) -> String {
-        return getPokemon(withIndex: index)?.sprites.frontDefault ?? ""
-    }
-    
     func loadPokemons() {
         reachability.whenReachable = { [weak self] reachability in
-            PokemonDataService.shared.getPokemons(offset: 0, limit: 20) { [weak self] (pokemons) in
+            self?.pokemonDataService.getPokemons(offset: 0, limit: 20) { [weak self] (pokemons) in
                 if let pokemons = pokemons {
                     self?.savePokemons(pokemons)
                 }
@@ -76,8 +63,25 @@ class PokemonListViewModel {
             self.delegate?.reload()
         }
     }
+}
+
+private extension PokemonListViewModel {
+    func getPokemon(withIndex index: Int) -> Pokemon? {
+        if (0..<(pokemons?.count ?? 0)).contains(index) {
+            return pokemons?[index]
+        }
+        return nil
+    }
     
-    private func getCachedPokemons() {
+    func getPokemonName(withIndex index: Int) -> String {
+        return getPokemon(withIndex: index)?.name ?? ""
+    }
+    
+    func getPokemonImageURL(withIndex index: Int) -> String {
+        return getPokemon(withIndex: index)?.sprites.frontDefault ?? ""
+    }
+    
+    func getCachedPokemons() {
         if let pokemons = pokemonsCache.object(forKey: pokeponKey) {
             self.pokemons = Array(_immutableCocoaArray: pokemons)
         } else {
@@ -85,7 +89,7 @@ class PokemonListViewModel {
         }
     }
     
-    private func savePokemons(_ pokemons: [Pokemon]) {
+    func savePokemons(_ pokemons: [Pokemon]) {
         let pokemonsarray = pokemons as NSArray
         pokemonsCache.setObject(pokemonsarray, forKey: pokeponKey)
     }

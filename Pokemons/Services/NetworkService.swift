@@ -13,7 +13,7 @@ enum RequestError: Error {
     case unacceptableStatusCode
 }
 
-final class NetworkService {
+final public class NetworkService {
     static func request<T: Decodable>(query: URL, completion: @escaping (Result<T, Error>) -> Void) {
         URLSession.shared.dataTask(with: query) { (data, response, error) in
             guard error == nil else {

@@ -7,10 +7,10 @@
 
 import Foundation
 
-class PokemonDataService {
+public class PokemonDataService {
     static let shared = PokemonDataService()
     
-    func getPokemons(offset: Int, limit: Int, completionHandler: @escaping ([Pokemon]?) -> Void) {
+    public func getPokemons(offset: Int, limit: Int, completionHandler: @escaping ([Pokemon]?) -> Void) {
         let urlString = APIKeys.baseURL + "/pokemon?offset=\(offset)&limit=\(limit)"
         request(urlString: urlString) { [unowned self] (response: PokemonResponse?) in
             guard let response = response, let pokemons = response.results else { return completionHandler(nil) }
@@ -27,7 +27,7 @@ class PokemonDataService {
         }
     }
     
-    func getPokemonDetails(id: Int, completionHandler: @escaping (Pokemon?) -> Void) {
+    public func getPokemonDetails(id: Int, completionHandler: @escaping (Pokemon?) -> Void) {
         let urlString = APIKeys.baseURL + "/pokemon/\(id)"
         request(urlString: urlString) { (pokemon: Pokemon?) in
             completionHandler(pokemon)
