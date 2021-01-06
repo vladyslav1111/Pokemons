@@ -11,6 +11,8 @@ class PokemonListViewController: UIViewController {
     var tableView: UITableView!
     var viewModel: PokemonListViewModel!
     
+    private let rowHeight: CGFloat = 100
+    
     init(viewModel: PokemonListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -64,8 +66,15 @@ extension PokemonListViewController: UITableViewDataSource {
 }
 
 extension PokemonListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let detailsViewModel = viewModel.getDetailsViewModel(forIndex: indexPath.row) else { return }
+        let controller = PokemonDetailsViewController(viewModel: detailsViewModel)
+        navigationController?.pushViewController(controller, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return rowHeight
     }
 }
 

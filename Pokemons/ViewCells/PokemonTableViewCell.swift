@@ -14,15 +14,13 @@ struct PokemonCellViewModel {
 
 
 class PokemonTableViewCell: UITableViewCell {
-    private let pokemonImage: LoadedImageView
-    private let nameLabel: UILabel
+    private let pokemonImage = LoadableImageView()
+    private let nameLabel = UILabel()
     private let stackView: UIStackView
     
     private let spacing: CGFloat = 15
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        pokemonImage = LoadedImageView()
-        nameLabel = UILabel()
         stackView = UIStackView(arrangedSubviews: [pokemonImage, nameLabel])
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()

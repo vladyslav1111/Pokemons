@@ -12,19 +12,11 @@ protocol PokemonListViewModelDelegate: class {
 }
 
 class PokemonListViewModel {
-    var pokemons: [Pokemon]?
-    var delegate: PokemonListViewModelDelegate?
+    private var pokemons: [Pokemon]?
+    weak var delegate: PokemonListViewModelDelegate?
     
     var numberOfPokemons: Int {
         return pokemons?.count ?? 0
-    }
-    
-    func getPokemonName(withIndex index: Int) -> String {
-        return getPokemon(withIndex: index)?.name ?? ""
-    }
-    
-    func getPokemonImageURL(withIndex index: Int) -> String {
-        return getPokemon(withIndex: index)?.sprites.frontDefault ?? ""
     }
     
     func getPokemonCellViewModel(forIndex index: Int) -> PokemonCellViewModel {
@@ -33,11 +25,24 @@ class PokemonListViewModel {
         return PokemonCellViewModel(name: name, imageURL: imageURL)
     }
     
+    func getDetailsViewModel(forIndex index: Int) -> PokemonDetailsViewModel? {
+        guard let pokemon = getPokemon(withIndex: index) else { return nil }
+        return PokemonDetailsViewModel(pokemon: pokemon)
+    }
+    
     private func getPokemon(withIndex index: Int) -> Pokemon? {
         if (0..<(pokemons?.count ?? 0)).contains(index) {
             return pokemons?[index]
         }
         return nil
+    }
+    
+    private func getPokemonName(withIndex index: Int) -> String {
+        return getPokemon(withIndex: index)?.name ?? ""
+    }
+    
+    private func getPokemonImageURL(withIndex index: Int) -> String {
+        return getPokemon(withIndex: index)?.sprites.frontDefault ?? ""
     }
     
     func loadPokemons() {

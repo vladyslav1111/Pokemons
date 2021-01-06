@@ -8,7 +8,7 @@
 import UIKit
 let imageCache = NSCache<AnyObject, AnyObject>()
 
-class LoadedImageView: UIImageView {
+class LoadableImageView: UIImageView {
     var dataTask: URLSessionDataTask?
     let spiner = UIActivityIndicatorView(style: .gray)
     
