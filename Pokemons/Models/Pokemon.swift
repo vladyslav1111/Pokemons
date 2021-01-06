@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pokemon: Decodable {
+class Pokemon: Decodable {
     let id: Int
     let name: String
     let sprites: Sprites
@@ -25,7 +25,7 @@ struct Pokemon: Decodable {
     }
 }
 
-struct Stat: Decodable {
+class Stat: Decodable {
     let baseStat: Int
     let effort: Int
     let name: String
@@ -40,7 +40,7 @@ struct Stat: Decodable {
         case name
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         baseStat = try container.decode(Int.self, forKey: .baseStat)
         effort = try container.decode(Int.self, forKey: .effort)
@@ -49,7 +49,7 @@ struct Stat: Decodable {
     }
 }
 
-struct PokemonType: Decodable {
+class PokemonType: Decodable {
     let slot: Int
     let name: String
     
@@ -62,7 +62,7 @@ struct PokemonType: Decodable {
         case name
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         slot = try container.decode(Int.self, forKey: .slot)
         let nestedContainer = try container.nestedContainer(keyedBy: TypeKeys.self, forKey: .type)

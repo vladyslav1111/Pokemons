@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Reachability
 
 protocol PokemonListViewModelDelegate: class {
     func reload()
@@ -14,6 +15,14 @@ protocol PokemonListViewModelDelegate: class {
 class PokemonListViewModel {
     private var pokemons: [Pokemon]?
     weak var delegate: PokemonListViewModelDelegate?
+    let reachability: Reachability
+    let pokemonsCache: NSCache<NSString, NSArray>
+    let pokeponKey: NSString = "pokemons"
+    
+    init() {
+        self.reachability = try! Reachability()
+        self.pokemonsCache = NSCache<NSString, NSArray>()
+    }
     
     var numberOfPokemons: Int {
         return pokemons?.count ?? 0
@@ -46,9 +55,38 @@ class PokemonListViewModel {
     }
     
     func loadPokemons() {
-        PokemonDataService.shared.getPokemons(offset: 0, limit: 50) { [weak self] (pokemons) in
-            self?.pokemons = pokemons
+        reachability.whenReachable = { [weak self] reachability in
+            PokemonDataService.shared.getPokemons(offset: 0, limit: 20) { [weak self] (pokemons) in
+                if let pokemons = pokemons {
+                    self?.savePokemons(pokemons)
+                }
+                self?.pokemons = pokemons
+                self?.delegate?.reload()
+            }
+        }
+        reachability.whenUnreachable = { [weak self] _ in
+            self?.getCachedPokemons()
             self?.delegate?.reload()
         }
+
+        do {
+            try reachability.startNotifier()
+        } catch {
+            getCachedPokemons()
+            self.delegate?.reload()
+        }
+    }
+    
+    private func getCachedPokemons() {
+        if let pokemons = pokemonsCache.object(forKey: pokeponKey) {
+            self.pokemons = Array(_immutableCocoaArray: pokemons)
+        } else {
+            pokemons = []
+        }
+    }
+    
+    private func savePokemons(_ pokemons: [Pokemon]) {
+        let pokemonsarray = pokemons as NSArray
+        pokemonsCache.setObject(pokemonsarray, forKey: pokeponKey)
     }
 }

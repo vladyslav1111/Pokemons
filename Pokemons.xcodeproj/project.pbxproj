@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,7 @@
 		21839A0E25A5E035006AC97E /* StatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A0D25A5E035006AC97E /* StatsCollectionViewCell.swift */; };
 		21839A1025A5E099006AC97E /* TypesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A0F25A5E099006AC97E /* TypesCollectionViewCell.swift */; };
 		21839A1225A5F565006AC97E /* dfgf.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21839A1125A5F565006AC97E /* dfgf.xib */; };
-		21839A1425A5FF49006AC97E /* OfflineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A1325A5FF49006AC97E /* OfflineService.swift */; };
+		21839A1725A60358006AC97E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 21839A1625A60358006AC97E /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,6 @@
 		21839A0D25A5E035006AC97E /* StatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCollectionViewCell.swift; sourceTree = "<group>"; };
 		21839A0F25A5E099006AC97E /* TypesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesCollectionViewCell.swift; sourceTree = "<group>"; };
 		21839A1125A5F565006AC97E /* dfgf.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = dfgf.xib; sourceTree = "<group>"; };
-		21839A1325A5FF49006AC97E /* OfflineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21839A1725A60358006AC97E /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +172,6 @@
 			children = (
 				210152B725A321B90097BADA /* NetworkService.swift */,
 				210152BB25A32AC30097BADA /* PokemonDataService.swift */,
-				21839A1325A5FF49006AC97E /* OfflineService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -256,6 +255,9 @@
 			dependencies = (
 			);
 			name = Pokemons;
+			packageProductDependencies = (
+				21839A1625A60358006AC97E /* Reachability */,
+			);
 			productName = Pokemons;
 			productReference = 2101528325A313F40097BADA /* Pokemons.app */;
 			productType = "com.apple.product-type.application";
@@ -327,6 +329,9 @@
 				Base,
 			);
 			mainGroup = 2101527A25A313F40097BADA;
+			packageReferences = (
+				21839A1525A60358006AC97E /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = 2101528425A313F40097BADA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -384,7 +389,6 @@
 				210152C425A3325E0097BADA /* PokemonResponse.swift in Sources */,
 				218399FE25A5BFEE006AC97E /* PokemonImageTableViewCell.swift in Sources */,
 				21839A0325A5C5E0006AC97E /* CellProtocol.swift in Sources */,
-				21839A1425A5FF49006AC97E /* OfflineService.swift in Sources */,
 				21839A0825A5CE14006AC97E /* CellItemProtocol.swift in Sources */,
 				2101528725A313F40097BADA /* AppDelegate.swift in Sources */,
 				2101530425A367C90097BADA /* PokemonListViewModel.swift in Sources */,
@@ -713,6 +717,26 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		21839A1525A60358006AC97E /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = versionRange;
+				maximumVersion = 6.0.0;
+				minimumVersion = 4.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		21839A1625A60358006AC97E /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21839A1525A60358006AC97E /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2101527B25A313F40097BADA /* Project object */;
 }

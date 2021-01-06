@@ -76,7 +76,7 @@ extension PokemonDetailsViewController: UITableViewDataSource {
 extension PokemonDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 120
+            return 140
         }
         return 80
     }
