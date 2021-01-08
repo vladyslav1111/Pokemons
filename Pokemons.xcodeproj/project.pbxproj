@@ -28,7 +28,6 @@
 		21839A0C25A5D6E5006AC97E /* PokemonInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A0B25A5D6E5006AC97E /* PokemonInfoTableViewCell.swift */; };
 		21839A0E25A5E035006AC97E /* StatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A0D25A5E035006AC97E /* StatsCollectionViewCell.swift */; };
 		21839A1025A5E099006AC97E /* TypesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A0F25A5E099006AC97E /* TypesCollectionViewCell.swift */; };
-		21839A1225A5F565006AC97E /* dfgf.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21839A1125A5F565006AC97E /* dfgf.xib */; };
 		21839A1725A60358006AC97E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 21839A1625A60358006AC97E /* Reachability */; };
 		21839A1925A60F76006AC97E /* PokemonListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839A1825A60F76006AC97E /* PokemonListViewModelTests.swift */; };
 /* End PBXBuildFile section */
@@ -78,7 +77,6 @@
 		21839A0B25A5D6E5006AC97E /* PokemonInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoTableViewCell.swift; sourceTree = "<group>"; };
 		21839A0D25A5E035006AC97E /* StatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCollectionViewCell.swift; sourceTree = "<group>"; };
 		21839A0F25A5E099006AC97E /* TypesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesCollectionViewCell.swift; sourceTree = "<group>"; };
-		21839A1125A5F565006AC97E /* dfgf.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = dfgf.xib; sourceTree = "<group>"; };
 		21839A1825A60F76006AC97E /* PokemonListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +138,6 @@
 				210152C025A32FA80097BADA /* Models */,
 				210152B625A321100097BADA /* Services */,
 				2101528625A313F40097BADA /* AppDelegate.swift */,
-				21839A1125A5F565006AC97E /* dfgf.xib */,
 				210152BD25A32C6A0097BADA /* APIKeys.swift */,
 				2101528F25A313F60097BADA /* Assets.xcassets */,
 				2101529125A313F60097BADA /* LaunchScreen.storyboard */,
@@ -349,7 +346,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21839A1225A5F565006AC97E /* dfgf.xib in Resources */,
 				2101529325A313F60097BADA /* LaunchScreen.storyboard in Resources */,
 				2101529025A313F60097BADA /* Assets.xcassets in Resources */,
 			);
