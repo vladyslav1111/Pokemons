@@ -10,6 +10,8 @@ import UIKit
 class PokemonListViewController: UIViewController {
     var tableView: UITableView!
     var viewModel: PokemonListViewModel!
+    var paginationView: PaginationView!
+    var activityIndicator: ActivityIndicator!
     
     private let rowHeight: CGFloat = 100
     
@@ -24,12 +26,43 @@ class PokemonListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViews()
+        activityIndicator = ActivityIndicator(view: view, center: view.center)
+        view.backgroundColor = .white
+        activityIndicator.show()
         viewModel.loadPokemons()
         viewModel.delegate = self
-        configureTableView()
         
         title = "Pokemons"
         navigationController?.navigationBar.barTintColor = .orange
+    }
+    
+    private func configureViews() {
+        configurePaginationView()
+        configureTableView()
+    }
+    
+    private func configurePaginationView() {
+        edgesForExtendedLayout = []
+        paginationView = PaginationView(frame: .zero)
+        paginationView.prevButtonAction = { [weak self] in
+            self?.activityIndicator.show()
+            self?.viewModel.loadPrevPagePokemons()
+        }
+        paginationView.nextButtonAction = { [weak self] in
+            self?.activityIndicator.show()
+            self?.viewModel.loadNextPagePokemons()
+        }
+        view.addSubview(paginationView)
+        paginationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            paginationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            paginationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            paginationView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            paginationView.heightAnchor.constraint(equalToConstant: 15)
+        ])
+        view.layoutIfNeeded()
     }
     
     private func configureTableView() {
@@ -40,7 +73,7 @@ class PokemonListViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: paginationView.bottomAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
@@ -82,6 +115,7 @@ extension PokemonListViewController: PokemonListViewModelDelegate {
     func reload() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.activityIndicator.hide()
         }
     }
 }

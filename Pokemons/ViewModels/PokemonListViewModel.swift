@@ -17,6 +17,9 @@ class PokemonListViewModel {
     private let reachability: Reachability
     private let pokeponKey: NSString = "pokemons"
     
+    private let limit = 20
+    private(set) var pageNumber = 0
+    
     var numberOfPokemons: Int {
         return pokemons?.count ?? 0
     }
@@ -41,9 +44,14 @@ class PokemonListViewModel {
         return PokemonDetailsViewModel(pokemon: pokemon)
     }
     
-    func loadPokemons() {
-        reachability.whenReachable = { [weak self] reachability in
-            self?.pokemonDataService.getPokemons(offset: 0, limit: 20) { [weak self] (pokemons) in
+    func loadPokemons(forPage page: Int = 0) {
+        switch reachability.connection {
+        case .none, .unavailable:
+            getCachedPokemons()
+            delegate?.reload()
+        default:
+            pokemonDataService.getPokemons(offset: self.limit * page, limit: self.limit) { [weak self] (pokemons) in
+                self?.pageNumber = page
                 if let pokemons = pokemons {
                     self?.savePokemons(pokemons)
                 }
@@ -51,17 +59,18 @@ class PokemonListViewModel {
                 self?.delegate?.reload()
             }
         }
-        reachability.whenUnreachable = { [weak self] _ in
-            self?.getCachedPokemons()
-            self?.delegate?.reload()
+    }
+    
+    func loadNextPagePokemons() {
+        loadPokemons(forPage: pageNumber + 1)
+    }
+    
+    func loadPrevPagePokemons() {
+        guard pageNumber != 0 else {
+            delegate?.reload()
+            return		
         }
-
-        do {
-            try reachability.startNotifier()
-        } catch {
-            getCachedPokemons()
-            self.delegate?.reload()
-        }
+        loadPokemons(forPage: pageNumber - 1)
     }
 }
 
